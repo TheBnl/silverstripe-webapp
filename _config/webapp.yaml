@@ -1,0 +1,6 @@
+---
+name: webapp
+---
+Page_Controller:
+  extensions:
+    - 'WebAppPageControllerExtension'
