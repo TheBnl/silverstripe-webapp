@@ -8,6 +8,7 @@ class WebAppPageControllerExtension extends Extension {
 		$splashScreens = $config->WebAppStartupScreens();
 
 		$tags = '';
+		$tags .= '<meta name="viewport" content="initial-scale=1, user-scalable='.$config->UserScalable.$config->MinimalUI.'">';
 		$tags .= '<meta name="apple-mobile-web-app-capable" content="'.$config->Fullscreen.'">';
 		$tags .= '<meta name="apple-mobile-web-app-status-bar-style" content="'.$config->StatusBar.'">';
 		$tags .= '<meta name="apple-mobile-web-app-title" content="'.$config->AppTitle.'">';

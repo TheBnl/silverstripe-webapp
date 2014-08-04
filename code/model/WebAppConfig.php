@@ -23,7 +23,8 @@ class WebAppConfig extends DataObject implements PermissionProvider {
 		"AppTitle" => "Varchar(255)",
 		"Fullscreen" => "Enum('yes,no','no')",
 		"StatusBar" => "Enum('default,black,black-translucent','default')",
-		"MinimalUI" => "Enum('yes,no','no')",
+		"MinimalUIOption" => "Enum('yes,no','no')",
+		"MinimalUI" => "Varchar(255)",
 		"UserScalable" => "Enum('yes,no','no')",
 		//"Width" => "Enum('yes,no','no')",
 		"Javascript" => "Enum('yes,no','no')"
@@ -75,9 +76,9 @@ class WebAppConfig extends DataObject implements PermissionProvider {
 		$fields->addFieldToTab(
 			'Root.Config',
 			new OptionsetField(
-				'MinimalUI',
+				'MinimalUIOption',
 				'Use Minimal UI:',
-				singleton('WebAppConfig')->dbObject('MinimalUI')->enumValues()
+				singleton('WebAppConfig')->dbObject('MinimalUIOption')->enumValues()
 			)
 		);
 
@@ -101,9 +102,23 @@ class WebAppConfig extends DataObject implements PermissionProvider {
 
 		// remove the default empty tab and the empty WebAppIcons WebAppStartupScreens tabs
 		$fields->removeByName(array('Main','WebAppIcons','WebAppStartupScreens'));
-		//$fields->remove
+
+		// hide the MinimalUI field, this gets written inBefore Write. See below
+		$fields->addFieldToTab('Root.Config', new HiddenField('MinimalUI'));
 
 		return $fields;
+	}
+
+	function onBeforeWrite() {
+		$MinimalUI = $this->MinimalUIOption;
+
+		if($MinimalUI == 'yes') {
+			$this->setField('MinimalUI', ' , minimal-ui');
+		} else if($MinimalUI == 'no') {
+			$this->setField('MinimalUI', '');
+		}
+
+		parent::onBeforeWrite();
 	}
 
 	/**
