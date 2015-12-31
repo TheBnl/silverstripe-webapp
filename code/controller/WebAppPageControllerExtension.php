@@ -1,30 +1,32 @@
 <?php
 
-class WebAppPageControllerExtension extends Extension {
+class WebAppPageControllerExtension extends Extension
+{
 
-	public function onAfterInit(){
-		$config = WebAppConfig::current_site_config();
-		$icons = $config->WebAppIcons();
-		$splashScreens = $config->WebAppStartupScreens();
+    public function onAfterInit()
+    {
+        $config = WebAppConfig::current_site_config();
+        $icons = $config->WebAppIcons();
+        $splashScreens = $config->WebAppStartupScreens();
 
-		$tags = '';
-		$tags .= '<meta name="viewport" content="initial-scale=1, user-scalable='.$config->UserScalable.$config->MinimalUI.'">';
-		$tags .= '<meta name="apple-mobile-web-app-capable" content="'.$config->Fullscreen.'">';
-		$tags .= '<meta name="apple-mobile-web-app-status-bar-style" content="'.$config->StatusBar.'">';
-		$tags .= '<meta name="apple-mobile-web-app-title" content="'.$config->AppTitle.'">';
+        $tags = '';
+        $tags .= '<meta name="viewport" content="initial-scale=1, user-scalable='.$config->UserScalable.$config->MinimalUI.'">';
+        $tags .= '<meta name="apple-mobile-web-app-capable" content="'.$config->Fullscreen.'">';
+        $tags .= '<meta name="apple-mobile-web-app-status-bar-style" content="'.$config->StatusBar.'">';
+        $tags .= '<meta name="apple-mobile-web-app-title" content="'.$config->AppTitle.'">';
 
-		foreach($icons as $icon) {
-			$size = $icon->Size;
-			$url = $icon->Image()->URL;
-			$tags .= '<link href="'.$url.'" sizes="'.$size.'" rel="apple-touch-icon">';
-		}
+        foreach ($icons as $icon) {
+            $size = $icon->Size;
+            $url = $icon->Image()->URL;
+            $tags .= '<link href="'.$url.'" sizes="'.$size.'" rel="apple-touch-icon">';
+        }
 
-		foreach($splashScreens as $splashScreen) {
-			$media = $splashScreen->Media;
-			$url = $splashScreen->Image()->URL;
-			$tags .= '<link href="'.$url.'" media="'.$media.'" rel="apple-touch-startup-image">';
-		}
+        foreach ($splashScreens as $splashScreen) {
+            $media = $splashScreen->Media;
+            $url = $splashScreen->Image()->URL;
+            $tags .= '<link href="'.$url.'" media="'.$media.'" rel="apple-touch-startup-image">';
+        }
 
-		Requirements::insertHeadTags($tags);
-	}
+        Requirements::insertHeadTags($tags);
+    }
 }
