@@ -75,7 +75,7 @@ class WebAppController extends LeftAndMain
     /**
      * Used for preview controls, mainly links which switch between different states of the page.
      *
-     * @return ArrayData
+     * @return HTMLText
      */
     public function getSilverStripeNavigator()
     {
@@ -87,7 +87,7 @@ class WebAppController extends LeftAndMain
      *
      * @param array $data
      * @param Form $form
-     * @return String
+     * @return SS_HTTPResponse
      */
     public function save_siteconfig($data, $form)
     {
