@@ -65,6 +65,19 @@ class WebAppConfig extends DataObject implements PermissionProvider
                 singleton('WebAppConfig')->dbObject('StatusBar')->enumValues()
             )
         );
+        
+        // Support for tractorcow/silverstripe-colorpicker.
+        if(class_exists('ColorField')) {
+            $colorField = new ColorField('ThemeColor', 'Theme color');
+        } else {
+            $colorField = new TextField('ThemeColor', 'Theme color');
+            $colorField->setRightTitle('Color that will fill the status bar of the handheld device, eg. \'#4285f4\'');
+        }
+
+        $fields->addFieldToTab(
+            'Root.Config',
+            $colorField
+        );
 
         $fields->addFieldToTab('Root.Config', new LabelField('Label', 'Viewport meta options'));
         $fields->addFieldToTab(
