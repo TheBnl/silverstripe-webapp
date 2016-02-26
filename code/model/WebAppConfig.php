@@ -9,6 +9,7 @@
  * @property bool    MinimalUI      Option to use the Minimal UI (new in iOS7).
  * @property bool    UserScalable   Viewport option to disable/enable scaling of the content.
  * @property bool    Javascript     Option to use experimental javascript, the javascript is used to keep a user in the fullscreen app experience but has to be used with caution because it overrides all <a> tags includeing the links that link to external sites and the links that dont go anywhere. This is beiing worked on.
+ * @property string  ThemeColor     A theme color that will fill the status bar of a handheld device. (optional)
  *
  * @method   HasMany Icons          This module can manage multiple sorts of icons for multiple device types.
  * @method   HasMany StartupScreens This module can manage multiple sorts of splash screens for multiple device types.
@@ -28,7 +29,8 @@ class WebAppConfig extends DataObject implements PermissionProvider
         "MinimalUI" => "Varchar(255)",
         "UserScalable" => "Enum('yes,no','no')",
         //"Width" => "Enum('yes,no','no')",
-        "Javascript" => "Enum('yes,no','no')"
+        "Javascript" => "Enum('yes,no','no')",
+        "ThemeColor" => "Varchar(255)"
     );
 
     private static $has_many = array(
