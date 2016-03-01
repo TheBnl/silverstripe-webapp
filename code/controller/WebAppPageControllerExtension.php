@@ -15,6 +15,22 @@ class WebAppPageControllerExtension extends Extension
         $tags .= '<meta name="apple-mobile-web-app-status-bar-style" content="'.$config->StatusBar.'">';
         $tags .= '<meta name="apple-mobile-web-app-title" content="'.$config->AppTitle.'">';
 
+        // User has defined a theme color.
+        if($config->ThemeColor) {
+
+            $color = $config->ThemeColor;
+
+            // Make sure color starts with a number sign.
+            if(substr($color,0,1) !== '#') $color = '#' . $color;
+
+            // Chrome, Firefox, Opera
+            $tags .= '<meta name="theme-color" content="' . $color . '">';
+
+            // Windows Phone
+            $tags .= '<meta name="msapplication-navbutton-color" content="' . $color . '">';
+
+        }
+        
         foreach ($icons as $icon) {
             $size = $icon->Size;
             $url = $icon->Image()->URL;
